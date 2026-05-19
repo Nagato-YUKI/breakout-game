@@ -1,3 +1,7 @@
+/* ============================================================
+   打砖块游戏样式
+   ============================================================ */
+
 * {
   margin: 0;
   padding: 0;
@@ -5,36 +9,39 @@
 }
 
 body {
-  background-color: #0f0f23;
-  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px 0;
+  font-family: 'Arial', sans-serif;
 }
 
 .game-container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .game-title {
   color: #ffffff;
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 15px;
-  text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
+  text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+  letter-spacing: 2px;
 }
 
 #gameCanvas {
-  display: block;
-  margin: 0 auto;
-  border: 2px solid #1e90ff;
+  border: 2px solid #1E90FF;
   border-radius: 4px;
-  box-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
 }
 
 .controls {
   margin-top: 15px;
-  color: #888888;
+  color: #a0a0a0;
   font-size: 14px;
+  text-align: center;
+  line-height: 1.6;
 }
