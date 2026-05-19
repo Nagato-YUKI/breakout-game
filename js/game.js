@@ -70,6 +70,7 @@ let pressedKeys = {};
 // 动画帧ID和暂停标志
 let animationFrameId = null;
 let isRespawning = false;
+let respawnTimeoutId = null;
 
 // ========== 初始化函数 ==========
 function init() {
@@ -118,15 +119,18 @@ function handleKeyDown(event) {
   }
   
   if (event.key === 'r' || event.key === 'R') {
-    if (currentState === GAME_STATE.WIN || currentState === GAME_STATE.GAME_OVER) {
-      restartGame();
-    }
+    event.preventDefault();
+    restartGame();
   }
 }
 
 function handleKeyUp(event) {
   pressedKeys[event.key] = false;
 }
+
+window.addEventListener('blur', () => {
+  pressedKeys = {};
+});
 
 function handleMouseMove(event) {
   if (currentState !== GAME_STATE.PLAYING && currentState !== GAME_STATE.INITIAL) return;
@@ -175,11 +179,17 @@ function launchBall() {
 }
 
 function restartGame() {
+  if (respawnTimeoutId) {
+    clearTimeout(respawnTimeoutId);
+    respawnTimeoutId = null;
+  }
+  
   score = 0;
   lives = INITIAL_LIVES;
   paddleX = (CANVAS_WIDTH - PADDLE_WIDTH) / 2;
   currentState = GAME_STATE.INITIAL;
   isRespawning = false;
+  pressedKeys = {};
   initBricks();
   resetBall();
 }
@@ -255,7 +265,7 @@ function handleBallLost() {
     currentState = GAME_STATE.GAME_OVER;
   } else {
     isRespawning = true;
-    setTimeout(() => {
+    respawnTimeoutId = setTimeout(() => {
       isRespawning = false;
       resetBall();
     }, RESPAWN_DELAY_MS);
